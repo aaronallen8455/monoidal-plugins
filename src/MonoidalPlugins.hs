@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 module MonoidalPlugins
   ( MonoidalPlugin(..)
   , foldPlugins
@@ -9,7 +10,11 @@ import           Data.Coerce
 import           Data.Foldable
 import           Data.IORef
 import           GHC.Driver.Plugins
+#if MIN_VERSION_ghc(9,8,0)
 import           GHC.Tc.Errors.Hole.Plugin
+#else
+import           GHC.Tc.Errors.Hole.FitTypes
+#endif
 import qualified GHC.Tc.Types as Tc
 
 foldPlugins
@@ -33,7 +38,9 @@ instance Semigroup MonoidalPlugin where
         (coerce $ holeFitPlugin a opts :: Maybe SGHoleFitPlugin)
         <> coerce (holeFitPlugin b opts)
     , driverPlugin = \opts -> driverPlugin a opts >=> driverPlugin b opts
+#if MIN_VERSION_ghc(9,10,0)
     , latePlugin = \hscEnv opts -> latePlugin a hscEnv opts >=> latePlugin b hscEnv opts
+#endif
     , pluginRecompile = \opts ->
         pluginRecompile a opts <> pluginRecompile b opts
     , parsedResultAction = \opts modSum ->
