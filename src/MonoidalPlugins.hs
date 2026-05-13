@@ -10,11 +10,7 @@ import           Data.Coerce
 import           Data.Foldable
 import           Data.IORef
 import           GHC.Driver.Plugins
-#if MIN_VERSION_ghc(9,8,0)
 import           GHC.Tc.Errors.Hole.Plugin
-#else
-import           GHC.Tc.Errors.Hole.FitTypes
-#endif
 import qualified GHC.Tc.Types as Tc
 
 foldPlugins

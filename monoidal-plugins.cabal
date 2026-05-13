@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               monoidal-plugins
-version:            0.1.0.0
+version:            0.1.1.0
 synopsis: A monoidal interface for aggregating GHC plugins
 description: A monoidal interface for aggregating GHC plugins into a single plugin
 category: Development
@@ -24,6 +24,6 @@ library
     import:           warnings
     exposed-modules:  MonoidalPlugins
     build-depends:    base < 5,
-                      ghc >= 9.6 && < 9.13
+                      ghc >= 9.8 && < 9.15
     hs-source-dirs:   src
     default-language: GHC2021
